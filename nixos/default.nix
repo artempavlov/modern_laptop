@@ -160,6 +160,9 @@ in
           mkdir -p "$OUTDIR"
           cd "$OUTDIR"
           ${pkgs.acpica-tools}/bin/acpidump -b
+          # Remove tables not needed for DSDT patching (only dsdt.dat and ssdt*.dat are used).
+          # msdm.dat and slic.dat may contain OEM license keys and should not be committed.
+          find . -maxdepth 1 -name '*.dat' ! -name 'dsdt.dat' ! -name 'ssdt*.dat' -delete
           echo ""
           echo "ACPI tables dumped to: $(pwd)"
           echo ""
