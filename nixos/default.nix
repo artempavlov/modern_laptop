@@ -85,7 +85,6 @@ in
 
     productName = lib.mkOption {
       type = lib.types.str;
-      default = "TM2113-Redmi_Book_Pro_15_2022";
       description = ''
         Product name as detected by dmidecode. Format: `<baseboard-product-name>-<system-product-name>`.
         Run `dmidecode -s baseboard-product-name` and `dmidecode -s system-product-name` to determine yours.
