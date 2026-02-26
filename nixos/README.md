@@ -5,11 +5,11 @@ Fixes keyboard, microphone, power management, and suspend/resume issues.
 
 ## Supported Models
 
-| Model | Product Name |
-|-------|-------------|
+| Model                  | Product Name                    |
+| ---------------------- | ------------------------------- |
 | Redmi Book Pro 15 2022 | `TM2113-Redmi_Book_Pro_15_2022` |
 | Redmi Book Pro 14 2022 | `TM2107-Redmi_Book_Pro_14_2022` |
-| RedmiBook Pro 15 2021 | `TM2019-RedmiBook_Pro_15S` |
+| RedmiBook Pro 15 2021  | `TM2019-RedmiBook_Pro_15S`      |
 
 ## Setup (3 steps)
 
@@ -20,15 +20,12 @@ In your `flake.nix` or `configuration.nix`:
 ```nix
 # flake.nix
 {
-  inputs.modern-laptop = {
-    url = "github:vrolife/modern_laptop";
-    flake = false;
-  };
+  inputs.modern-laptop.url = "github:artempavlov/modern_laptop";
 
   outputs = { self, nixpkgs, modern-laptop, ... }: {
     nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
       modules = [
-        "${modern-laptop}/nixos"
+        modern-laptop.nixosModules.default
         ./configuration.nix
       ];
     };
@@ -82,14 +79,14 @@ Reboot to apply.
 
 ## Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `enable` | bool | `false` | Enable the ACPI patch |
-| `productName` | string | `TM2113-Redmi_Book_Pro_15_2022` | Product identifier (see supported models) |
-| `biosVersion` | string | — | BIOS version string |
-| `acpiDumpDir` | path | — | Path to ACPI dump directory |
-| `overrideAcpiOsi` | bool | `true` | Add `acpi_osi=! acpi_osi=Linux` kernel params |
-| `memSleepDeep` | bool | `false` | Add `mem_sleep_default=deep` (TM2019 only) |
+| Option            | Type   | Default                         | Description                                   |
+| ----------------- | ------ | ------------------------------- | --------------------------------------------- |
+| `enable`          | bool   | `false`                         | Enable the ACPI patch                         |
+| `productName`     | string | `TM2113-Redmi_Book_Pro_15_2022` | Product identifier (see supported models)     |
+| `biosVersion`     | string | —                               | BIOS version string                           |
+| `acpiDumpDir`     | path   | —                               | Path to ACPI dump directory                   |
+| `overrideAcpiOsi` | bool   | `true`                          | Add `acpi_osi=! acpi_osi=Linux` kernel params |
+| `memSleepDeep`    | bool   | `false`                         | Add `mem_sleep_default=deep` (TM2019 only)    |
 
 ## How it works
 
